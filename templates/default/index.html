@@ -1,0 +1,76 @@
+{{define "default/index.html"}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+<body>
+
+    {{template "public/page_header.html" .}}
+    <h2>index</h2>
+    <h2>{{.title}}</h2>
+    <!-- 定义变量 -->
+    {{$t := .title}}
+    <hr>
+    <h4>
+        {{$t}}
+    </h4>
+    <!-- 条件判断 -->
+    {{if ge .score 60}}
+    <p>及格</p>
+    {{else}}
+    <p>不及格</p>
+    {{end}}
+
+    {{if gt .score 90}}
+    <p>优秀</p>
+    {{else if gt .score 80}}
+    <p>良好</p>
+    {{else if gt .score 60}}
+    <p>及格</p>
+    {{else}}
+    <p>不及格</p>
+    {{end}}
+
+    <!-- 循环遍历数据 -->
+    <ul>
+        {{range $key,$value := .hobby}}
+        <li>{{$key}}-----{{$value}}</li>
+        {{end}}
+    </ul>
+
+    <ul>
+        {{range $key,$value := .newsList}}
+        <li>{{$key}}-----{{$value.Title}}----{{$value.Content}}</li>
+        {{end}}
+    </ul>
+    <hr>
+    <ul>
+        {{range $key,$value := .hobby}}
+        <li>{{$key}}-----{{$value}}</li>
+        {{else}}
+        <li>切片没有数据</li>
+        {{end}}
+    </ul>
+    <!-- 解构结构体 -->
+    <hr>
+    <p>
+        {{with.news}}
+        {{.Title}}
+        {{.Content}}
+        {{end}}
+    </p>
+    <hr>
+    {{len .title}}
+    <hr>
+    {{.date}}
+    <hr>
+    {{UnixToTime .date}}
+    <img src="/static/image/pm.jpg" alt="派蒙">
+</body>
+</html>
+{{end}}
